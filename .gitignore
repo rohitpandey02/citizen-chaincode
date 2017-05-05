@@ -1,0 +1,9 @@
+.project
+node_modules
+*.exe
+
+# compiled chaincode
+citizen_code/citizen_code
+
+# IntelliJ
+.idea

@@ -3,11 +3,11 @@ package main
 import (
 	"errors"
 	"fmt"
-	"strconv"
-	"strings"
+	//"strconv"
+	//"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"encoding/json"
-	"regexp"
+	//"regexp"
 )
 
 var logger = shim.NewLogger("CDChaincode")
