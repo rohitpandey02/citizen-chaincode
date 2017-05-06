@@ -133,19 +133,13 @@ func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (str
 
 	user, err := t.get_username(stub)
 
-	if err != nil { return "", "", err }
-
-	ecert, err := t.get_ecert(stub, user);
-
-  if err != nil { return "", "", err }
-
-	/*role, err := t.check_role(stub)
+	role, err := t.check_role(stub)
 
 	if err != nil {
 		return "", "", err
-	}*/
+	}
 
-	return user, string(ecert[:]), nil
+	return user, role, nil
 }
 
 func (t *SimpleChaincode) retrieve_ID(stub shim.ChaincodeStubInterface, PersonID string) (Citizen, error) {
