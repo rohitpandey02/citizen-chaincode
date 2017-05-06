@@ -415,7 +415,7 @@ func (t *SimpleChaincode) add_healthrecord(stub shim.ChaincodeStubInterface, c C
 	healthrecordid := "\"HealthRecordID\":\"" + HealthRecordID + "\", "
 	physicianname := "\"PhysicianName\":\"" + PhysicianName + "\", "
 	facilityname := "\"FacilityName\":\"" + FacilityName + "\", "
-	facilityaddress := "\"FacilityAddress\":\"" + address_json + "\", "
+	facilityaddress := "\"FacilityAddress\":" + address_json + ", "
 	typeofservice := "\"TypeOfService\":\"" + TypeOfService + "\", "
 	servicedescription := "\"ServiceDescription\":\"" + ServiceDescription + "\", "
 	dateofservice := "\"DateOfService\":\"" + DateOfService + "\", "
@@ -495,7 +495,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 			fmt.Printf("QUERY: Error retrieving ID: %s", err)
 			return nil, errors.New("QUERY: Error retrieving ID " + err.Error())
 		}
-		return t.get_person_details(stub, c, caller, GOVT_ADMIN)
+		return t.get_person_details(stub, c, caller, AUTHORITY)
 	} else if function == "get_health_details" {
 		if len(args) != 1 {
 			fmt.Printf("Incorrect number of arguments passed")
