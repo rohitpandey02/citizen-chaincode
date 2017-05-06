@@ -433,10 +433,6 @@ func (t *SimpleChaincode) add_healthrecord(stub shim.ChaincodeStubInterface, c C
 	}
 
 	if caller_role == HEALTHCARE_ADMIN || caller_role == HEALTHCARE_USER {
-		/*if c.PersonHealth == {
-			var healthrecords []Health
-			c.PersonHealth = healthrecords
-		}*/
 		c.PersonHealth = append(c.PersonHealth, healthrecord)
 	} else {
 		return nil, errors.New(fmt.Sprint("Permission denied. add_healthrecord"))
