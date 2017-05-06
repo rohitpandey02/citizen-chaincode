@@ -207,17 +207,17 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 			return nil, errors.New("Error retrieving ID")
 		}
 		if function == "add_govtid" {
-			return t.add_govtid(stub, c, caller, GOVT_ADMIN, args[0])
+			return t.add_govtid(stub, c, caller, GOVT_ADMIN, args[1])
 		} else if function == "add_name" {
-			return t.add_name(stub, c, caller, GOVT_ADMIN, args[0])
+			return t.add_name(stub, c, caller, GOVT_ADMIN, args[1])
 		} else if function == "add_bloodgroup" {
-			return t.add_bloodgroup(stub, c, caller, HEALTHCARE_ADMIN, args[0])
+			return t.add_bloodgroup(stub, c, caller, HEALTHCARE_ADMIN, args[1])
 		} else if function == "update_address" {
-			return t.update_address(stub, c, caller, GOVT_ADMIN, args[0], args[1], args[2], args[3], args[4], args[5])
+			return t.update_address(stub, c, caller, GOVT_ADMIN, args[1], args[2], args[3], args[4], args[5], args[6])
 		} else if function == "add_healthrecord" {
-			return t.add_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12])
+			return t.add_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13])
 		} else if function == "update_healthrecord" {
-			return t.update_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[0], args[1], args[2])
+			return t.update_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[1], args[2], args[3])
 		}
 	}
 
@@ -232,8 +232,8 @@ func (t *SimpleChaincode) create_person(stub shim.ChaincodeStubInterface, caller
 	personid := "\"PersonID\":\"" + PersonID + "\", "
 	govtid := "\"GovtID\":\"UNDEFINED\", "
 	name := "\"Name\":\"UNDEFINED\", "
-	gender := "\"Gender\":\"" + DOB + "\", "
-	dob := "\"DOB\":\"" + Gender + "\", "
+	gender := "\"Gender\":\"" + Gender + "\", "
+	dob := "\"DOB\":\"" + DOB + "\", "
 	bloodgroup := "\"BloodGroup\":\"UNDEFINED\", "
 	currentaddress := "\"CurrentAddress\":{}, "
 	personhealth := "\"PersonHealth\":[]"
