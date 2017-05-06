@@ -235,8 +235,8 @@ func (t *SimpleChaincode) create_person(stub shim.ChaincodeStubInterface, caller
 	gender := "\"Gender\":\"" + DOB + "\", "
 	dob := "\"DOB\":\"" + Gender + "\", "
 	bloodgroup := "\"BloodGroup\":\"UNDEFINED\", "
-	currentaddress := "\"CurrentAddress\":\"UNDEFINED\", "
-	personhealth := "\"PersonHealth\":[{}]"
+	currentaddress := "\"CurrentAddress\":{}, "
+	personhealth := "\"PersonHealth\":[]"
 
 	citizen_json := "{" + personid + govtid + name + gender + dob + bloodgroup + currentaddress + personhealth + "}"
 
