@@ -130,7 +130,7 @@ func (t *SimpleChaincode) check_role(stub shim.ChaincodeStubInterface) (string, 
 }
 
 func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (string, string, error) {
-
+	/*
 	user, err := t.get_username(stub)
 
 	role, err := t.check_role(stub)
@@ -138,8 +138,8 @@ func (t *SimpleChaincode) get_caller_data(stub shim.ChaincodeStubInterface) (str
 	if err != nil {
 		return "", "", err
 	}
-
-	return user, role, nil
+	*/
+	return "", "", nil
 }
 
 func (t *SimpleChaincode) retrieve_ID(stub shim.ChaincodeStubInterface, PersonID string) (Citizen, error) {
@@ -190,8 +190,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 		return nil, errors.New("Error retrieving caller information")
 	}
 
+	logger.Debug("function: ", function)
+	logger.Debug("caller: ", caller)
+	logger.Debug("role: ", caller_role)
+
 	if function == "create_person" {
-		return t.create_person(stub, caller, caller_role, args[0], args[1], args[2])
+		return t.create_person(stub, caller, GOVT_ADMIN, args[0], args[1], args[2])
 	} else if function == "ping" {
 		return t.ping(stub)
 	} else if function == "write" {
@@ -203,15 +207,17 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 			return nil, errors.New("Error retrieving ID")
 		}
 		if function == "add_govtid" {
-			return t.add_govtid(stub, c, caller, caller_role, args[0])
+			return t.add_govtid(stub, c, caller, GOVT_ADMIN, args[0])
 		} else if function == "add_name" {
-			return t.add_name(stub, c, caller, caller_role, args[0])
+			return t.add_name(stub, c, caller, GOVT_ADMIN, args[0])
+		} else if function == "add_bloodgroup" {
+			return t.add_bloodgroup(stub, c, caller, HEALTHCARE_ADMIN, args[0])
 		} else if function == "update_address" {
-			return t.update_address(stub, c, caller, caller_role, args[0], args[1], args[2], args[3], args[4], args[5])
+			return t.update_address(stub, c, caller, GOVT_ADMIN, args[0], args[1], args[2], args[3], args[4], args[5])
 		} else if function == "add_healthrecord" {
-			return t.add_healthrecord(stub, c, caller, caller_role, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12])
+			return t.add_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12])
 		} else if function == "update_healthrecord" {
-			return t.update_healthrecord(stub, c, caller, caller_role, args[0], args[1], args[2])
+			return t.update_healthrecord(stub, c, caller, HEALTHCARE_ADMIN, args[0], args[1], args[2])
 		}
 	}
 
@@ -489,7 +495,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 			fmt.Printf("QUERY: Error retrieving ID: %s", err)
 			return nil, errors.New("QUERY: Error retrieving ID " + err.Error())
 		}
-		return t.get_person_details(stub, c, caller, caller_role)
+		return t.get_person_details(stub, c, caller, GOVT_ADMIN)
 	} else if function == "get_health_details" {
 		if len(args) != 1 {
 			fmt.Printf("Incorrect number of arguments passed")
@@ -500,11 +506,11 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 			fmt.Printf("QUERY: Error retrieving ID: %s", err)
 			return nil, errors.New("QUERY: Error retrieving ID " + err.Error())
 		}
-		return t.get_health_details(stub, c, caller, caller_role)
+		return t.get_health_details(stub, c, caller, GOVT_ADMIN)
 	} else if function == "check_unique_ID" {
-		return t.check_unique_ID(stub, args[0], caller, caller_role)
+		return t.check_unique_ID(stub, args[0], caller, AUTHORITY)
 	} else if function == "get_persons" {
-		return t.get_persons(stub, caller, caller_role)
+		return t.get_persons(stub, caller, AUTHORITY)
 	} else if function == "get_ecert" {
 		return t.get_ecert(stub, args[0])
 	} else if function == "ping" {
