@@ -236,7 +236,7 @@ func (t *SimpleChaincode) create_person(stub shim.ChaincodeStubInterface, caller
 	dob := "\"DOB\":\"" + Gender + "\", "
 	bloodgroup := "\"BloodGroup\":\"UNDEFINED\", "
 	currentaddress := "\"CurrentAddress\":\"UNDEFINED\", "
-	personhealth := "\"PersonHealth\":[]"
+	personhealth := "\"PersonHealth\":[{}]"
 
 	citizen_json := "{" + personid + govtid + name + gender + dob + bloodgroup + currentaddress + personhealth + "}"
 
@@ -248,7 +248,7 @@ func (t *SimpleChaincode) create_person(stub shim.ChaincodeStubInterface, caller
 	err := json.Unmarshal([]byte(citizen_json), &c)
 
 	if err != nil {
-		return nil, errors.New("Invalid JSON object")
+		return nil, errors.New("Invalid JSON object:" + citizen_json)
 	}
 
 	record, err := stub.GetState(c.PersonID)
