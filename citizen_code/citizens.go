@@ -47,7 +47,7 @@ type Citizen struct {
 	DOB            string   `json:"dob"`
 	BloodGroup     string   `json:"bloodgroup"`
 	CurrentAddress Address  `json:"currentaddress"`
-	PersonHealth   []Health `json:"personahealth"`
+	PersonHealth   []Health `json:"personhealth"`
 }
 
 type ID_Holder struct {
